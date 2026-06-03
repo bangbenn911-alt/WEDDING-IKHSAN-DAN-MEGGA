@@ -492,12 +492,16 @@
             btnSubmit.innerHTML = "Sedang Mengirim...";
             btnSubmit.classList.add('opacity-50');
 
-            const formData = new FormData(form);
+           const plainFormData = new FormData(form);
+           const formData = new URLSearchParams(plainFormData);
 
             fetch(scriptURL, { 
-                method: 'POST', 
-                body: formData
-            })
+            method: 'POST',
+            headers: {
+           'Content-Type': 'application/x-www-form-urlencoded'
+    },
+             body: formData.toString()
+    })
             .then(response => {
                 btnSubmit.disabled = false;
                 btnSubmit.innerHTML = "KIRIM KONFIRMASI";
